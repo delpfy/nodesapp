@@ -10,7 +10,35 @@ interface NodesState {
 }
 
 export const initialState: NodesState = {
-  nodes: JSON.parse(localStorage.getItem("nodes") || "{}"),
+  nodes:
+    JSON.parse(localStorage.getItem("nodes") || "{}")[0] === undefined
+      ? [
+          {
+            id: "1",
+            type: "textUpdater",
+            data: { label: "Node 1" },
+            position: { x: 0, y: 0 },
+          },
+          {
+            id: "2",
+            type: "textUpdater",
+            data: { label: "Node 2" },
+            position: { x: 210, y: 115 },
+          },
+          {
+            id: "3",
+            type: "textUpdater",
+            data: { label: "Node 3" },
+            position: { x: 420, y: 230 },
+          },
+          {
+            id: "4",
+            type: "textUpdater",
+            data: { label: "Node 4" },
+            position: { x: 630, y: 345 },
+          },
+        ]
+      : JSON.parse(localStorage.getItem("nodes") || "{}"),
   edges: [
     { id: "e1-2", source: "1", target: "2" },
     { id: "e2-3", source: "2", target: "3" },
@@ -32,6 +60,11 @@ const nodesSlice = createSlice({
       state,
       action: PayloadAction<{ id: string; position: { x: number; y: number } }>
     ) => {
+
+      if (JSON.parse(localStorage.getItem("nodes") || "{}")[0] === undefined){
+        localStorage.setItem("nodes", JSON.stringify(state.nodes));
+      } 
+
       const { id, position } = action.payload;
       const node = state.nodes.find((node) => node.id === id);
       if (node) {
@@ -39,14 +72,10 @@ const nodesSlice = createSlice({
         const nodesInStorage = JSON.parse(
           localStorage.getItem("nodes") || "{}"
         );
-
+        
         nodesInStorage[parseInt(id) - 1].position = position;
         localStorage.setItem("nodes", JSON.stringify(nodesInStorage));
       }
-    },
-
-    setNodes: (state, action) => {
-      state.nodes = action.payload;
     },
 
     updateNodeValue: (
@@ -76,8 +105,7 @@ const nodesSlice = createSlice({
   },
 });
 
-export const { updateNodePosition, updateNodeValue, setNodes } =
-  nodesSlice.actions;
+export const { updateNodePosition, updateNodeValue } = nodesSlice.actions;
 export const selectNodes = (state: RootState) => state.node.nodes;
 export const nodesValues = (state: RootState) => state.node.values;
 

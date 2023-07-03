@@ -24,12 +24,10 @@ const VariantOptions: React.FC<{ id: string }> = ({ id }) => {
         isConnectable={true}
       />
       <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
-        <select onChange={handleSelectChange} className="nodrag">
-          <option value="" disabled selected hidden>
-            {values[parseInt(id) - 1].value.length === 0
+        <select onChange={handleSelectChange} defaultValue={values[parseInt(id) - 1].value.length === 0
               ? "Виберіть значення"
-              : "Варіант " + values[parseInt(id) - 1].value}
-          </option>
+              : "Варіант " + values[parseInt(id) - 1].value} className="nodrag">
+          
 
           <option value="1">Варіант {values[parseInt(id) - 1].value}</option>
           <option value="2">Варіант {values[parseInt(id) - 1].value}</option>
