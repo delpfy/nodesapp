@@ -1,5 +1,3 @@
-
-
 export interface Node {
   id: string;
   type: string;
@@ -8,16 +6,13 @@ export interface Node {
     x: number;
     y: number;
   };
- 
 }
 
-
 export interface Edge {
-    id: string;
-    source: string;
-    target: string;
-    
-  }
+  id: string;
+  source: string;
+  target: string;
+}
 
 export interface NodesState {
   nodes: Node[];
