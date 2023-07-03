@@ -1,0 +1,18 @@
+.text-updater-node {
+  height: 100px;
+  width: 200px;
+  border: 2px solid #d2fb95;
+  border-radius: 5px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.text-updater-node label {
+  display: block;
+  color: #777;
+  font-size: 12px;
+}
+
+
