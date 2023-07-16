@@ -10,10 +10,24 @@ const VariantOptions: React.FC<{ id: string }> = ({ id }) => {
 
   const handleSelectChange = React.useCallback(
     (evt: React.ChangeEvent<HTMLSelectElement>) => {
+      console.log("evt.target.value " + evt.target.value)
       dispatch(updateNodeValue({ id: parseInt(id), value: evt.target.value }));
     },
-    []
+    [id, dispatch]
   );
+
+  function displayVariants() {
+    let variants = ' ';
+    if(values){
+      values[parseInt(id) - 1].value.map((value) => {
+        variants += value;
+      })
+    }
+    else{
+      variants = '1'
+    }
+    return variants.slice(0, -1);
+  }
 
   return (
     <div className="text-updater-node">
@@ -29,12 +43,12 @@ const VariantOptions: React.FC<{ id: string }> = ({ id }) => {
               : "Варіант " + values[parseInt(id) - 1].value} className="nodrag">
           
 
-          <option value="1">Варіант {values[parseInt(id) - 1].value}</option>
-          <option value="2">Варіант {values[parseInt(id) - 1].value}</option>
-          <option value="3">Варіант {values[parseInt(id) - 1].value}</option>
-          <option value="4">Варіант {values[parseInt(id) - 1].value}</option>
-          <option value="5">Варіант {values[parseInt(id) - 1].value}</option>
-          <option value="6">Варіант {values[parseInt(id) - 1].value}</option>
+          <option value="1">Варіант {displayVariants() + '1'}</option>
+          <option value="2">Варіант {displayVariants() + '2' }</option>
+          <option value="3">Варіант {displayVariants() + '3' }</option>
+          <option value="4">Варіант {displayVariants() + '4' }</option>
+          <option value="5">Варіант {displayVariants() + '5' }</option>
+          <option value="6">Варіант {displayVariants() + '6' }</option>
         </select>
       </div>
       <Handle

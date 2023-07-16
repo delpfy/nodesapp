@@ -45,10 +45,10 @@ export const initialState: NodesState = {
     { id: "e3-4", source: "3", target: "4" },
   ],
   values: [
-    { id: 1, value: [] },
-    { id: 2, value: [] },
-    { id: 3, value: [] },
-    { id: 4, value: [] },
+    { id: 1, value: ['1'] },
+    { id: 2, value: ['1','-1'] },
+    { id: 3, value: ['1','-1','-1'] },
+    { id: 4, value: ['1','-1','-1','-1'] },
   ],
 };
 
@@ -84,22 +84,30 @@ const nodesSlice = createSlice({
     ) => {
       const node = state.values.find((v) => v.id === action.payload.id);
       if (node) {
+
         if (node.id === 1) {
+
           node.value.pop();
           node.value.push(action.payload.value);
 
           state.values.forEach((item, i) => {
-            if (item.id !== node.id) {
+            if (item.id >= node.id) {
               item.value[0] = action.payload.value;
             }
           });
-        } else {
+
+        } 
+
+        else {
           state.values.forEach((item, i) => {
             if (item.id >= node.id) {
               item.value[node.id - 1] = "-" + action.payload.value;
             }
           });
+
+          
         }
+
       }
     },
   },
